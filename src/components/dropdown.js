@@ -2,12 +2,41 @@ import React, {useState, useEffect, useContext} from 'react'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
+
 import CharactersContext from '../contexts/characters'; 
 
-const DropdownControl = (props) => {
+const DropdownControl = () => {
   const {selectedCharacter, setSelectedCharacter} = useContext(CharactersContext);
 
+  const [charactersList, setCharactersList] = useState([]);
   const [value, setValue] = useState('');
+
+  
+  const getAllPeople = (url, people, resolve, reject) => {
+    axios.get(url)
+    .then(response => {
+      const returnedPeople = people.concat(response.data.results);
+      if (response.data.next !== null) {
+        getAllPeople(response.data.next, returnedPeople, resolve, reject)
+      } else {
+        resolve(returnedPeople);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      reject('something went wrong')
+    })
+  }
+
+  useEffect(() => {
+    new Promise((resolve, reject) => {
+      getAllPeople('http://swapi.dev/api/people', [], resolve, reject)
+    })
+      .then(response => {
+        setCharactersList(response);
+      })
+  }, []);
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -51,17 +80,17 @@ const DropdownControl = (props) => {
   );
 
   const dropdownSelected = (idx, ev) => {
-    setSelectedCharacter(props.characters[idx - 1]); 
+    setSelectedCharacter(charactersList[idx - 1]); 
   }
 
 
   return (
     <Dropdown>
       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-        Select Character
+        { selectedCharacter === null ? 'Select Character' : selectedCharacter.name}
       </Dropdown.Toggle>
       <Dropdown.Menu as={CustomMenu}>
-         {props.characters.map(function(d, idx){
+         {charactersList.map(function(d, idx){
           return (<Dropdown.Item value={idx} key={idx} eventKey={idx + 1} onSelect={dropdownSelected}>{d.name}</Dropdown.Item>)
          })}
       </Dropdown.Menu>
