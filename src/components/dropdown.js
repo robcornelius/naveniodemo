@@ -2,6 +2,8 @@ import React, {useState, useEffect, useContext} from 'react'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner'
+
 import axios from 'axios';
 
 import CharactersContext from '../contexts/characters'; 
@@ -11,6 +13,7 @@ const DropdownControl = () => {
 
   const [charactersList, setCharactersList] = useState([]);
   const [value, setValue] = useState('');
+  const [spinnerVisible, setSpinnerVisible] = useState(true)
 
   
   const getAllPeople = (url, people, resolve, reject) => {
@@ -35,8 +38,10 @@ const DropdownControl = () => {
     })
       .then(response => {
         setCharactersList(response);
+        setSpinnerVisible(false)
       })
   }, []);
+
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -48,7 +53,7 @@ const DropdownControl = () => {
     }}
   >
       {children}
-    &#x25bc;
+    { spinnerVisible && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/> }
   </a>
   ));
   const CustomMenu = React.forwardRef(

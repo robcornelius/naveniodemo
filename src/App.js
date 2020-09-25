@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import {Container, Row, Col} from 'react-bootstrap';
 
 import {CharactersContext} from './contexts/characters';
@@ -20,7 +21,11 @@ function App() {
     <div className="App">
       <Container>
         <Row>
-          <Col><DropdownControl/></Col>
+          <Col>
+            <div class="selectedCharacterBox">
+              <DropdownControl/>
+            </div>
+          </Col>
         </Row>
         <Row>
           <Col>
