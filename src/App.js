@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {Container, Row, Col} from 'react-bootstrap';
@@ -12,17 +12,13 @@ function App() {
 
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
-
-
-
-
   return (
     <CharactersContext.Provider value={{selectedCharacter, setSelectedCharacter}}>
     <div className="App">
       <Container>
         <Row>
           <Col>
-            <div class="selectedCharacterBox">
+            <div className="selectedCharacterBox">
               <DropdownControl/>
             </div>
           </Col>

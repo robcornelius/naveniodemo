@@ -4,19 +4,9 @@ import CharactersContext from '../contexts/characters';
 
 import Table from 'react-bootstrap/Table';
 
-const CharacterDetails = (props) => {
+const CharacterDetails = () => {
 
-  const {selectedCharacter, setSelectedCharacter} = useContext(CharactersContext);
-  const [char, setChar] = useState({})
-
-  useEffect(() => {
-    if (selectedCharacter !== null ) {
-      console.log('selectedCharacter', selectedCharacter);
-      setChar(selectedCharacter);
-      console.log('char', char);
-      //setChar(props.characters[selectedCharacter].name);
-    } 
-  }, [selectedCharacter]);
+  const {selectedCharacter} = useContext(CharactersContext);
 
   const fields = [
     {
@@ -42,16 +32,15 @@ const CharacterDetails = (props) => {
   ]
 
   return (
-
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th colspan="2"><h1>{char.name}</h1></th>
+          <th colSpan="2"><h1>{selectedCharacter === null ? '' : selectedCharacter.name}</h1></th>
         </tr>
       </thead>
       <tbody>
           {fields.map(field => {
-            return (<tr key={field.id}><td><strong>{field.display}</strong></td><td>{char[field.id]}</td></tr>)
+            return (<tr key={field.id}><td><strong>{field.display}</strong></td><td>{selectedCharacter === null ? '' : selectedCharacter[field.id]}</td></tr>)
           })}
       </tbody>
     </Table>
