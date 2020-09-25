@@ -1,3 +1,16 @@
+# Navenio Code Test
+
+First of all thanks for setting a test that isn't 'create an app that implements a todo list'.
+
+Technically I have failed this test though as I haven't written any unit tests. All of my previous work with front end unit testing has been with libraries such as Mocha, Chai and Sinon. Jest testing is a bit much to get my head around right now. Of course I would be able to pick it up fairly quickly but there are enough differences between Jest and what I am used to working with to make it more than an hour's work.
+
+Please accept my apologies for wasting your time if means an automatic fail at this stage.
+
+Rob Cornelius
+
+Instructions are as follows.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
