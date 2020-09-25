@@ -1,25 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect, useContext} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Row, Col} from 'react-bootstrap';
+import axios from 'axios';
+
+import {CharactersContext} from './contexts/characters';
+
+import DropdownControl from './components/dropdown';
+import CharacterDetails from './components/CharacterDetails';
 
 function App() {
+
+  const [charactersList, setCharactersList] = useState([]);
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
+
+
+  const getAllPeople = (url, people, resolve, reject) => {
+    axios.get(url)
+    .then(response => {
+      const returnedPeople = people.concat(response.data.results);
+      if (response.data.next !== null) {
+        getAllPeople(response.data.next, returnedPeople, resolve, reject)
+      } else {
+        resolve(returnedPeople);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      reject('something went wrong')
+    })
+  }
+
+  useEffect(() => {
+    new Promise((resolve, reject) => {
+      getAllPeople('http://swapi.dev/api/people', [], resolve, reject)
+    })
+      .then(response => {
+        setCharactersList(response);
+      })
+  }, []);
+
+
+
   return (
+    <CharactersContext.Provider value={{selectedCharacter, setSelectedCharacter}}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Row>
+          <Col><DropdownControl characters={charactersList}/></Col>
+        </Row>
+        <Row>
+          <Col>
+            <CharacterDetails/>
+          </Col>
+        </Row>
+      </Container>
     </div>
+    </CharactersContext.Provider>
   );
 }
 
