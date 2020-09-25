@@ -8,7 +8,13 @@ Please accept my apologies for wasting your time if means an automatic fail at t
 
 Rob Cornelius
 
-Instructions are as follows.
+## Instructions are as follows.
+
+* clone this repository
+* cd to directory
+* `yarn`
+
+and then follow the instructions below.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
