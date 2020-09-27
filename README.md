@@ -2,7 +2,7 @@
 
 First of all thanks for setting a test that isn't 'create an app that implements a todo list'.
 
-Technically I have failed this test though as I haven't written any unit tests. All of my previous work with front end unit testing has been with libraries such as Mocha, Chai and Sinon. Jest testing is a bit much to get my head around right now. Of course I would be able to pick it up fairly quickly but there are enough differences between Jest and what I am used to working with to make it more than an hour's work.
+I have written some unit tests but as I am unfamiliar with Jest I have done what I can for now. In the past I have use Karma, Mocha, Chai, Sinon etc for running unit tests and Jest is quite a bit different to what I am used to. I didn't want to use Karma etc. to write tests as I far as I can see it doesn't play well with React.
 
 Please accept my apologies for wasting your time if means an automatic fail at this stage.
 
