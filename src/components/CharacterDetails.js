@@ -35,12 +35,12 @@ const CharacterDetails = () => {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th colSpan="2"><h1>{selectedCharacter === null ? '' : selectedCharacter.name}</h1></th>
+          <th colSpan="2"><h1>{selectedCharacter.name === 'Select Character' ? '' : selectedCharacter.name}</h1></th>
         </tr>
       </thead>
       <tbody>
           {fields.map(field => {
-            return (<tr key={field.id}><td><strong>{field.display}</strong></td><td>{selectedCharacter === null ? '' : selectedCharacter[field.id]}</td></tr>)
+            return (<tr key={field.id}><td><strong>{field.display}</strong></td><td>{selectedCharacter[field.id]}</td></tr>)
           })}
       </tbody>
     </Table>

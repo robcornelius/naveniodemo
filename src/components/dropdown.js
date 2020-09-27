@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import axios from 'axios';
 
 import CharactersContext from '../contexts/characters'; 
+import * as Utils from '../utils/characterList';
 
 const DropdownControl = () => {
   const {selectedCharacter, setSelectedCharacter} = useContext(CharactersContext);
@@ -15,25 +16,9 @@ const DropdownControl = () => {
   const [spinnerVisible, setSpinnerVisible] = useState(true)
 
   
-  const getAllPeople = (url, people, resolve, reject) => {
-    axios.get(url)
-    .then(response => {
-      const returnedPeople = people.concat(response.data.results);
-      if (response.data.next !== null) {
-        getAllPeople(response.data.next, returnedPeople, resolve, reject)
-      } else {
-        resolve(returnedPeople);
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      reject('something went wrong')
-    })
-  }
-
   useEffect(() => {
     new Promise((resolve, reject) => {
-      getAllPeople('http://swapi.dev/api/people', [], resolve, reject)
+      Utils.getAllCharacters('http://swapi.dev/api/people', [], resolve, reject)
     })
       .then(response => {
         setCharactersList(response);
@@ -91,7 +76,7 @@ const DropdownControl = () => {
   return (
     <Dropdown>
       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-        { selectedCharacter === null ? 'Select Character' : selectedCharacter.name}
+        { selectedCharacter === undefined ? 'Select Character' : selectedCharacter.name}
       </Dropdown.Toggle>
       <Dropdown.Menu as={CustomMenu}>
          {charactersList.map(function(d, idx){

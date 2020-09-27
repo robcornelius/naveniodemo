@@ -8,9 +8,17 @@ import {CharactersContext} from './contexts/characters';
 import DropdownControl from './components/dropdown';
 import CharacterDetails from './components/CharacterDetails';
 
-function App() {
+function App(props) {
+  const context = {
+    name: 'Select Character',
+    gender: '',
+    birth_year: '',
+    height: '',
+    mass: '',
+    hair_color: ''
+  }
 
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState(props.dummyContext || context);
 
   return (
     <CharactersContext.Provider value={{selectedCharacter, setSelectedCharacter}}>
